@@ -8,8 +8,7 @@ st.title("🛠️ Revisor Académico de Mantenimiento")
 st.markdown("Sube tu reporte en PDF para recibir una autoevaluación basada en competencias.")
 
 # --- CONEXIÓN CON GEMINI ---
-# Sustituye 'TU_API_KEY_AQUI' por la que obtuviste en AI Studio
-API_KEY = st.secrets["GEMINI_KEY"] 
+API_KEY = st.secrets["GEMINI_KEY"]
 genai.configure(api_key=API_KEY)
 
 # --- TU PROMPT DE REVISOR ---
@@ -27,7 +26,7 @@ if uploaded_file is not None:
     if st.button("Iniciar Evaluación"):
         try:
             with st.spinner("Analizando documento..."):
-                # Configuración del modelo (Asegúrate de que estas líneas tengan más espacios a la izquierda)
+                # Configuración del modelo
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-flash",
                     system_instruction=SYSTEM_PROMPT
@@ -48,25 +47,9 @@ if uploaded_file is not None:
 
         except Exception as e:
             st.error(f"Hubo un error: {e}")
-                
-                # Preparar el archivo para Gemini
-                file_data = uploaded_file.getvalue()
-                
-                # Generar contenido
-                response = model.generate_content([
-                    {"mime_type": "application/pdf", "data": file_data},
-                    "Por favor, evalúa este reporte técnico según las instrucciones de sistema."
-                ])
-                
-                st.success("Evaluación Completada")
-                st.markdown("---")
-                st.markdown(response.text)
-                
-        except Exception as e:
-            st.error(f"Hubo un error: {e}")
-
 
 st.sidebar.info("Herramienta docente para apoyo académico.")
+
 
 
 
