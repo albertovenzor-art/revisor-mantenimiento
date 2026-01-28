@@ -1,7 +1,7 @@
 import streamlit as st
 import google.generativeai as genai
 
-# Configuración de página
+# Configuración básica
 st.set_page_config(page_title="Revisor Mantenimiento", page_icon="🛠️")
 st.title("🛠️ Revisor Académico de Mantenimiento")
 
@@ -20,7 +20,7 @@ if uploaded_file is not None:
     if st.button("Iniciar Evaluación"):
         try:
             with st.spinner("Analizando documento..."):
-                # IMPORTANTE: En la versión 0.8.3 NO se usa el prefijo 'models/'
+                # IMPORTANTE: Usamos el nombre técnico para evitar el error 404
                 model = genai.GenerativeModel(
                     model_name="gemini-1.5-flash",
                     system_instruction=SYSTEM_PROMPT
@@ -28,7 +28,6 @@ if uploaded_file is not None:
                 
                 file_data = uploaded_file.getvalue()
                 
-                # Generar contenido enviando el PDF directamente
                 response = model.generate_content([
                     {"mime_type": "application/pdf", "data": file_data},
                     "Evalúa este reporte técnico siguiendo tus instrucciones de sistema."
