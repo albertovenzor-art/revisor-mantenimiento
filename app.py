@@ -28,10 +28,11 @@ if uploaded_file is not None:
         try:
             with st.spinner("Analizando documento..."):
                 # Configuración del modelo
-                model = genai.GenerativeModel(
-    model_name="gemini-1.5-flash",
-                    system_instruction=SYSTEM_PROMPT
-                )
+               # Configuración del modelo
+        model = genai.GenerativeModel(
+            model_name="gemini-1.5-flash",
+            system_instruction=SYSTEM_PROMPT
+        )
                 
                 # Preparar el archivo para Gemini
                 file_data = uploaded_file.getvalue()
@@ -51,5 +52,6 @@ if uploaded_file is not None:
 
 
 st.sidebar.info("Herramienta docente para apoyo académico.")
+
 
 
