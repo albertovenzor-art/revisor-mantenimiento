@@ -19,7 +19,7 @@ if uploaded_file is not None:
             with st.spinner("Analizando..."):
                 # CONFIGURACIÓN DEL MODELO
                 model = genai.GenerativeModel(
-                    model_name="gemini-1.5-flash",
+                    model_name="models/gemini-1.5-flash",
                     system_instruction=SYSTEM_PROMPT
                 )
                 
@@ -34,4 +34,5 @@ if uploaded_file is not None:
                 st.markdown(response.text)
         except Exception as e:
             st.error(f"Error: {e}")
+
 
