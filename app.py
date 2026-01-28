@@ -9,7 +9,7 @@ st.markdown("Sube tu reporte en PDF para recibir una autoevaluación basada en c
 
 # --- CONEXIÓN CON GEMINI ---
 # Sustituye 'TU_API_KEY_AQUI' por la que obtuviste en AI Studio
-API_KEY = "TU_API_KEY_AQUI" 
+API_KEY = st.secrets["GEMINI_KEY"] 
 genai.configure(api_key=API_KEY)
 
 # --- TU PROMPT DE REVISOR ---
@@ -48,5 +48,6 @@ if uploaded_file is not None:
                 
         except Exception as e:
             st.error(f"Hubo un error: {e}")
+
 
 st.sidebar.info("Herramienta docente para apoyo académico.")
