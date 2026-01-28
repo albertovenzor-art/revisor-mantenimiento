@@ -27,12 +27,27 @@ if uploaded_file is not None:
     if st.button("Iniciar Evaluación"):
         try:
             with st.spinner("Analizando documento..."):
-                # Configuración del modelo
-               # Configuración del modelo
-        model = genai.GenerativeModel(
-            model_name="gemini-1.5-flash",
-            system_instruction=SYSTEM_PROMPT
-        )
+                # Configuración del modelo (Asegúrate de que estas líneas tengan más espacios a la izquierda)
+                model = genai.GenerativeModel(
+                    model_name="gemini-1.5-flash",
+                    system_instruction=SYSTEM_PROMPT
+                )
+                
+                # Preparar el archivo para Gemini
+                file_data = uploaded_file.getvalue()
+                
+                # Generar contenido
+                response = model.generate_content([
+                    {"mime_type": "application/pdf", "data": file_data},
+                    "Por favor, evalúa este reporte técnico según las instrucciones de sistema."
+                ])
+
+            st.success("Evaluación Completada")
+            st.markdown("---")
+            st.markdown(response.text)
+
+        except Exception as e:
+            st.error(f"Hubo un error: {e}")
                 
                 # Preparar el archivo para Gemini
                 file_data = uploaded_file.getvalue()
@@ -52,6 +67,7 @@ if uploaded_file is not None:
 
 
 st.sidebar.info("Herramienta docente para apoyo académico.")
+
 
 
 
